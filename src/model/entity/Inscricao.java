@@ -4,9 +4,10 @@ public class Inscricao {
     private int id;
     private Aluno aluno;
     private Oficina oficina;
-    private enum Status{
+    public enum Status{
         ATIVA,
         CANCELADA
+
     }
     
     public Status status;
