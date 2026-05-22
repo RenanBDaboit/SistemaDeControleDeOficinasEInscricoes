@@ -65,6 +65,7 @@ public class View {
                 System.out.println("Apenas números!");
                 op = -1;
             }
+            
         } while (op != 0);
     }
 }
