@@ -108,7 +108,7 @@ public class InscricaoService {
         return true;
     }
 
-    public boolean cancelar(int id, int idAluno, int idOficina, OficinaRepository oficinaRepository, AlunoRepository alunoRepository,InscricaoRepository repository){
+    public boolean cancelar(int id,InscricaoRepository repository){
 
         boolean idExiste = false;
         for(Inscricao inscricao : repository.listar().values()) {
