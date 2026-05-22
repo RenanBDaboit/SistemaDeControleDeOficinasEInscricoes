@@ -19,5 +19,9 @@ public class OficinaRepository {
     public void remover(int id){
         oficinas.remove(id);
     }
+    public Oficina buscar(int id){
+        return oficinas.get(id);
+    }
+    
 }
 
