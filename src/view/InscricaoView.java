@@ -148,7 +148,23 @@ public class InscricaoView {
     private void cancelarInscricao(){
         listarInscricoes();
         try{
+            System.out.print("ID da inscrição que você quer cancelar: ");
+            int id = Integer.parseInt(sc.nextLine());
             
+            Inscricao inscricao = repository.buscar(id);
+            
+            if(inscricao == null){
+                System.out.println("Inscrição não encontrada!");
+            }
+            
+            boolean sucesso = controller.cancelar(id);
+            
+            if(sucesso){
+                System.out.println("Inscrição cancelada com sucesso");
+            } else {
+                System.out.println("Erro ao cancelar a inscrição");
+            }
+             
         } catch (NumberFormatException n){
             System.out.println("Apenas números!");
         }
