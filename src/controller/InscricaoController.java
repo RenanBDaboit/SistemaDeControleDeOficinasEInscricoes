@@ -11,24 +11,24 @@ import java.util.HashMap;
 
 public class InscricaoController {
     private final InscricaoService inscricaoService = new InscricaoService();
-    private final InscricaoRepository repository;
+    private final InscricaoRepository inscricaoRepository;
     private final AlunoRepository alunoRepository;
     private final OficinaRepository oficinaRepository;
     
-    public InscricaoController(InscricaoRepository repository, AlunoRepository alunoRepository, 
+    public InscricaoController(InscricaoRepository inscricaoRepository, AlunoRepository alunoRepository, 
                                OficinaRepository oficinaRepository){
-        this.repository = repository;
+        this.inscricaoRepository = inscricaoRepository;
         this.alunoRepository = alunoRepository;
         this.oficinaRepository = oficinaRepository;
         
     }
     
     public boolean cadastrar(int id, int idAluno, int idOficina, Inscricao.Status ativa){
-        return inscricaoService.cadastrar(id, idAluno, idOficina, oficinaRepository, alunoRepository, repository);
+        return inscricaoService.cadastrar(id, idAluno, idOficina, oficinaRepository, alunoRepository, inscricaoRepository);
     }
     
     public boolean atualizar(int id, int idAluno, int idOficina) {
-        return inscricaoService.cadastrar(id, idAluno, idOficina, oficinaRepository, alunoRepository, repository);
+        return inscricaoService.cadastrar(id, idAluno, idOficina, oficinaRepository, alunoRepository, inscricaoRepository);
     }
     
     public HashMap<Integer, Inscricao> listarIncricoes(){

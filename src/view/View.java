@@ -10,62 +10,64 @@ import model.repository.OficinaRepository;
 import java.util.Scanner;
 
 public class View {
-
     private final Scanner sc = new Scanner(System.in);
-
-    private final AlunoView alunoView;
-    private final OficinaView oficinaView;
-    private final InscricaoView inscricaoView;
-
-    public View(AlunoController alunoController,
-                         OficinaController oficinaController,
-                         InscricaoController inscricaoController,
-                         InscricaoRepository inscricaoRepository,
-                         AlunoRepository alunoRepository,
-                         OficinaRepository oficinaRepository) {
-
-        this.alunoView = new AlunoView(alunoController);
-        this.oficinaView = new OficinaView(oficinaController);
-        this.inscricaoView = new InscricaoView(inscricaoController, inscricaoRepository, alunoRepository, oficinaRepository);
-    }
-
-    public void menuPrincipal() {
+    
+    private final AlunoRepository alunoRepository = new AlunoRepository();
+    private final InscricaoRepository inscricaoRepository = new InscricaoRepository();
+    private final OficinaRepository oficinaRepository = new OficinaRepository();
+    
+    private final AlunoController alunoController = new AlunoController(alunoRepository);
+    private final InscricaoController inscricaoController = new InscricaoController(inscricaoRepository, 
+            alunoRepository, oficinaRepository);
+    private final OficinaController oficinaController = new OficinaController(oficinaRepository);
+    
+    private final AlunoView alunoView = new AlunoView(alunoController);
+    private final InscricaoView inscricaoView = new InscricaoView(inscricaoController, 
+            inscricaoRepository, alunoRepository, oficinaRepository);
+    private final OficinaView oficinaView = new OficinaView(oficinaController);
+    
+    public void menuPrincipal(){
         int op;
-        do {
+        do{
             System.out.println("+=====================================+");
-            System.out.println("|           MENU PRINCIPAL            |");
+            System.out.println("|            MENU PRINCIPAL           |");
             System.out.println("+=====================================+");
-            System.out.println("| [1] Aluno                           |");
-            System.out.println("| [2] Oficina                         |");
-            System.out.println("| [3] Inscrição                       |");
+            System.out.println("| [1] Alunos                          |");
+            System.out.println("| [2] Inscrições                      |");
+            System.out.println("| [3] Oficinas                        |");
             System.out.println("| [0] Sair                            |");
             System.out.println("+=====================================+");
             System.out.print("Escolha uma opção: ");
             try {
                 op = Integer.parseInt(sc.nextLine());
 
-                switch (op) {
-                    case 1 ->{
+                switch (op){
+                    case 1 -> {
                         alunoView.menuAluno();
                     }
+
                     case 2 ->{
-                        oficinaView.menuOficina();
-                    }
-                    case 3 ->{
                         inscricaoView.menuIncricao();
                     }
+
+                    case 3 ->{
+                        oficinaView.menuOficina();
+                    }
+
                     case 0 ->{
                         System.out.println("Saindo...");
+                        break;
                     }
+
                     default ->{
                         System.out.println("Opção incorreta!");
                     }
+
                 }
-            } catch (NumberFormatException n) {
-                System.out.println("Apenas números!");
+            } catch (NumberFormatException e) {
+                System.out.println("Entre com números");
                 op = -1;
             }
-            
         } while (op != 0);
     }
 }
