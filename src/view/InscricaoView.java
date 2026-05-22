@@ -97,6 +97,13 @@ public class InscricaoView {
         }
         
         boolean sucesso = controller.cadastrar(id, idAluno, idOficina, Inscricao.Status.ATIVA);
+
+        if (sucesso){
+            System.out.println("Inscrição cadastrada com sucesso");
+        }
+        else {
+            System.out.println("Erro ao cadastrar inscrição");
+        }
     }
     
     private void listarAlunos(){
@@ -140,8 +147,18 @@ public class InscricaoView {
             System.out.print("Nova oficina: ");
             idOficina = Integer.parseInt(sc.nextLine());
             Oficina oficina = oficinaRepository.buscar(idOficina);
+
         } catch (NumberFormatException n){
             System.out.println("Apenas números!");
+        }
+
+        boolean sucesso = controller.atualizar(id, idAluno, idOficina);
+
+        if (sucesso){
+            System.out.println("Inscrição atualizada com sucesso");
+        }
+        else {
+            System.out.println("Erro ao atualizar inscrição");
         }
     }
     

@@ -28,15 +28,15 @@ public class InscricaoController {
     }
     
     public boolean atualizar(int id, int idAluno, int idOficina) {
-        return inscricaoService.cadastrar(id, idAluno, idOficina, oficinaRepository, alunoRepository, inscricaoRepository);
+        return inscricaoService.atualizar(id, idAluno, idOficina, oficinaRepository, alunoRepository, inscricaoRepository);
     }
     
     public HashMap<Integer, Inscricao> listarIncricoes(){
-        return repository.listar();
+        return inscricaoRepository.listar();
     }
     
     public boolean cancelar(int id){
-        return inscricaoService.cancelar(id, repository);
+        return inscricaoService.cancelar(id, inscricaoRepository);
     }
     
     public HashMap<Integer, Aluno> listarAlunos(){
