@@ -23,7 +23,7 @@ public class InscricaoService {
 
         for (Aluno aluno : alunoRepository.listar().values()) {
 
-            if (aluno.getId() == id) {
+            if (aluno.getId() == idAluno) {
                 alunoExiste = true;
                 alunoSalvar = aluno;
             }
@@ -31,19 +31,15 @@ public class InscricaoService {
         }
 
         for (Oficina oficina : oficinaRepository.listar().values()) {
-            if (oficina.getId() == id) {
+            if (oficina.getId() == idOficina) {
                 oficinaExiste = true;
                 oficinaSalvar = oficina;
             }
         }
-            if(oficinaSalvar.getVagasDisponiveis() <= 0){
-                return false;
 
-        }
         for (Inscricao inscricao : repository.listar().values()) {
             if (inscricao.getId() == id) {
                 return false;
-
             }
         }
         if (!alunoExiste) {
@@ -55,6 +51,7 @@ public class InscricaoService {
         if (oficinaSalvar.getVagasDisponiveis() <= 0) {
             return false;
         }
+
         repository.salvar(new Inscricao(id, alunoSalvar, oficinaSalvar, Inscricao.Status.ATIVA));
         oficinaSalvar.setVagasDisponiveis(oficinaSalvar.getVagasDisponiveis() - 1);
         return true;
@@ -62,9 +59,9 @@ public class InscricaoService {
 
     public boolean atualizar(int id, int idAluno, int idOficina, OficinaRepository oficinaRepository, AlunoRepository alunoRepository, InscricaoRepository repository) {
 
+        boolean idExiste = false;
         boolean alunoExiste = false;
         boolean oficinaExiste = false;
-        boolean idExiste = false;
 
         Aluno alunoAtualizar = null;
         Oficina oficinaAtualizar = null;
@@ -75,13 +72,13 @@ public class InscricaoService {
 
         for (Aluno aluno : alunoRepository.listar().values()) {
 
-            if (aluno.getId() == id) {
+            if (aluno.getId() == idAluno) {
                 alunoExiste = true;
                 alunoAtualizar = aluno;
             }
         }
         for (Oficina oficina : oficinaRepository.listar().values()) {
-            if (oficina.getId() == id) {
+            if (oficina.getId() == idOficina) {
                 oficinaExiste = true;
                 oficinaAtualizar = oficina;
             }
@@ -89,9 +86,11 @@ public class InscricaoService {
         }
         for (Inscricao inscricao : repository.listar().values()) {
             if (inscricao.getId() == id) {
-                return false;
-
+                idExiste = true;
             }
+        }
+        if (!idExiste){
+            return false;
         }
         if (!alunoExiste) {
             return false;
@@ -99,11 +98,8 @@ public class InscricaoService {
         if (!oficinaExiste) {
             return false;
         }
-        if (oficinaAtualizar.getVagasDisponiveis() <= 0) {
-            return false;
-        }
-        repository.salvar(new Inscricao(id, alunoAtualizar, oficinaAtualizar, Inscricao.Status.ATIVA));
-        oficinaAtualizar.setVagasDisponiveis(oficinaAtualizar.getVagasDisponiveis() - 1);
+
+        repository.atualizar(new Inscricao(id, alunoAtualizar, oficinaAtualizar, Inscricao.Status.ATIVA));
 
         return true;
     }
