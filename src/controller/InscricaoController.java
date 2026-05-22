@@ -15,6 +15,7 @@ public class InscricaoController {
         this.repository = repository;
         this.alunoRepository = alunoRepository;
         this.oficinaRepository = oficinaRepository;
+        
     }
     
     public boolean cadastrar(int id, int idAluno, int idOficina){
