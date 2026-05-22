@@ -50,7 +50,7 @@ public class AlunoView {
         int id = -1;
         try{
             System.out.print("ID: ");
-            id = sc.nextInt();
+            id = Integer.parseInt(sc.nextLine());
         } catch (NumberFormatException n){
             System.out.println("Apenas números!");
         }
@@ -58,7 +58,7 @@ public class AlunoView {
         System.out.print("CPF: ");
         String cpf = sc.nextLine();
 
-        System.out.println("Nome: ");
+        System.out.print("Nome: ");
         String nome = sc.nextLine();
         
         boolean sucesso = alunoController.cadastrar(id, cpf, nome);
